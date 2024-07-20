@@ -22,11 +22,19 @@
 </script>
 </head>
 <body>
-    <h1>Chat Page 1</h1>
-    <div id="chat-box"></div>
-    <input type="text" id="message-input" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
     
+    <h1>Chat Page 1</h1>
+    <div id="chatBox"></div>
+    <input type="text" id="messageInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+    <style>
+        #chatBox {
+          border: 1px solid #ccc;
+          padding: 10px;
+          height: 200px;
+          overflow-y: scroll;
+        }
+    </style>
     <script src="chat.js"></script>
 </body>
 </html>
