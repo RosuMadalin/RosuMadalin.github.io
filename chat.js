@@ -1,4 +1,4 @@
-const chatBox = document.getElementById('chat-box');
+const chatBox = document.getElementById('chatBox');
 const messageInput = document.getElementById('message-input');
 
 function sendMessage() {
