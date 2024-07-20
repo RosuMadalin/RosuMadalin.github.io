@@ -23,10 +23,17 @@
 </head>
 <body>
     <h1>Chat Page 2</h1>
-    <div id="chat-box"></div>
-    <input type="text" id="message-input" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
-    
+    <div id="chatBox"></div>
+    <input type="text" id="messageInput" placeholder="Enter your message here">
+    <button onclick="sendMessage()">Send Message</button>
+    <style>
+        #chatBox {
+          border: 1px solid #ccc;
+          padding: 10px;
+          height: 200px;
+          overflow-y: scroll;
+        }
+    </style>
     <script src="chat.js"></script>
 </body>
 </html>
