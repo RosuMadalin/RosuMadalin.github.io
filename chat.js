@@ -11,9 +11,11 @@ function sendMessage() {
 }
 
 function postMessage(message) {
+    const timestamp = new Date().toISOString();
     db.collection('messages').add({
         text: message,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        readableTimestamp: timestamp
     }).then(() => {
         console.log('Message sent:', message);
     }).catch((error) => {
@@ -23,7 +25,13 @@ function postMessage(message) {
 
 function displayMessage(message) {
     const messageElement = document.createElement('div');
+    const timestampElement = document.createElement('span');
+    timestampElement.style.fontSize = 'smaller';
+    timestampElement.style.color = 'gray';
+    timestampElement.textContent = ` (${message.readableTimestamp})`;
+    
     messageElement.textContent = message.text;
+    messageElement.appendChild(timestampElement);
     chatBox.appendChild(messageElement);
 }
 
