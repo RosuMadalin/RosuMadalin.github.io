@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page 2</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+ <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBZHhC_gv51VMDgIDGV-9xK5_fCi1VPajw",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "chat-online-23bfb",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "29040309989",
+      appId: "1:29040309989:web:7b14ef01fe4fb930cdc60c"
+      };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+</script>
+</head>
+<body>
+    <h1>Chat Page 2</h1>
+    <div id="chat-box"></div>
+    <input type="text" id="message-input" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+    
+    <script src="chat.js"></script>
+</body>
+</html>
