@@ -23,13 +23,21 @@ function postMessage(message) {
     });
 }
 
+function formatLocalTime(utcDate) {
+    const date = new Date(utcDate);
+    return date.toLocaleString(); // Formats to local date and time
+}
+
 function displayMessage(message) {
     const messageElement = document.createElement('div');
     const timestampElement = document.createElement('span');
     timestampElement.style.fontSize = 'smaller';
     timestampElement.style.color = 'gray';
-    timestampElement.textContent = ` (${message.readableTimestamp})`;
-    
+
+    // Convert Firestore timestamp to local time
+    const localTime = formatLocalTime(message.timestamp.toDate());
+    timestampElement.textContent = ` (${localTime})`;
+
     messageElement.textContent = message.text;
     messageElement.appendChild(timestampElement);
     chatBox.appendChild(messageElement);
@@ -40,10 +48,12 @@ function receiveMessages() {
         .onSnapshot((snapshot) => {
             chatBox.innerHTML = '';
             snapshot.forEach((doc) => {
-                displayMessage(doc.data());
+                const message = doc.data();
+                // Convert Firestore Timestamp to JavaScript Date
+                message.timestamp = message.timestamp.toDate();
+                displayMessage(message);
             });
         });
 }
-
 // Start receiving messages
 receiveMessages();
