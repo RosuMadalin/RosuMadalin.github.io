@@ -38,4 +38,3 @@ function receiveMessages() {
 
 // Start receiving messages
 receiveMessages();
-displayMessages();
