@@ -41,8 +41,10 @@ function displayMessage(message) {
     messageElement.textContent = message.text;
     messageElement.appendChild(timestampElement);
     chatBox.appendChild(messageElement);
+    
+    // Scroll to the bottom
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
-
 function receiveMessages() {
     db.collection('messages').orderBy('timestamp')
         .onSnapshot((snapshot) => {
