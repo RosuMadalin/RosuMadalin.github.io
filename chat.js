@@ -14,7 +14,7 @@ function postMessage(message) {
     const timestamp = new Date().toISOString();
     db.collection('messages').add({
         text: message,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         readableTimestamp: timestamp
     }).then(() => {
         console.log('Message sent:', message);
