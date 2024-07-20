@@ -1,5 +1,5 @@
 const chatBox = document.getElementById('chatBox');
-const messageInput = document.getElementById('message-input');
+const messageInput = document.getElementById('messageInput');
 
 function sendMessage() {
     const message = messageInput.value;
