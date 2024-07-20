@@ -20,13 +20,27 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var db = firebase.firestore();
+  // Test Firebase connection
+db.collection("test").add({
+    test: "Test message"
+}).then(() => {
+    console.log("Test message added!");
+}).catch((error) => {
+    console.error("Error adding test message: ", error);
+});
+
+db.collection("test").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+    });
+});
 </script>
 </head>
 <body>
     <h1>Madalin</h1>
     <div id="chatBox"></div>
     <input type="text" id="messageInput" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
+    <button onclick="sendMessage()">Send Message</button>
     <p>This is Madalin's chat!</p>
     <a href="chat.html">Go to Ovidiu's chat</a>
     <style>
