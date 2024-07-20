@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Page 2</title>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
- <script>
+    <!-- Add Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+
+<script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
       apiKey: "AIzaSyBZHhC_gv51VMDgIDGV-9xK5_fCi1VPajw",
@@ -43,6 +45,8 @@ db.collection("test").get().then((querySnapshot) => {
     <button onclick="sendMessage()">Send Message</button>
     <p>This is Ovidiu's chat!</p>
     <a href="index.html">Go to Madalin's chat</a>
+   
+   
     <style>
         #chatBox {
           border: 1px solid #ccc;
