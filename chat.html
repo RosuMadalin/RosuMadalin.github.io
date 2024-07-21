@@ -37,6 +37,14 @@ db.collection("test").get().then((querySnapshot) => {
     });
 });
 </script>
+<style>
+    #chatBox {
+    height: 200px; /* Adjust this value as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    }
+</style>
 </head>
 <body>
     <h1>Ovidiu</h1>
@@ -49,7 +57,7 @@ db.collection("test").get().then((querySnapshot) => {
    
     <style>
         #chatBox {
-        height: 400px; /* Adjust this value as needed */
+        height: 200px; /* Adjust this value as needed */
         overflow-y: auto;
         border: 1px solid #ddd;
         padding: 10px;
