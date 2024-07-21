@@ -1,16 +1,18 @@
 const chatBox = document.getElementById('chatBox');
 const messageInput = document.getElementById('messageInput');
 
+
 function sendMessage() {
     const message = messageInput.value;
     if (message) {
-        postMessage(message);
+        postMessage(senderName, message);
         messageInput.value = '';
     }
 }
 
-function postMessage(message) {
+function postMessage(sender, message) {
     db.collection('messages').add({
+        sender: sender,
         text: message,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).then(() => {
@@ -22,7 +24,9 @@ function postMessage(message) {
 
 function displayMessage(message) {
     const messageElement = document.createElement('div');
-    messageElement.textContent = message.text;
+    messageElement.classList.add('message');
+    messageElement.classList.add(message.sender === senderName ? 'self' : 'other');
+    messageElement.innerHTML = `<span class="sender">${message.sender}:</span> <span class="text">${message.text}</span>`;
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
 }
