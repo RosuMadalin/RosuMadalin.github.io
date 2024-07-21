@@ -37,6 +37,14 @@ db.collection("test").get().then((querySnapshot) => {
     });
 });
 </script>
+<style>
+    #chatBox {
+    height: 200px; /* Adjust this value as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    }
+</style>
 </head>
 <body>
     <h1>Madalin</h1>
@@ -45,15 +53,7 @@ db.collection("test").get().then((querySnapshot) => {
     <button onclick="sendMessage()">Send Message</button>
     <p>This is Madalin's chat!</p>
     <a href="chat.html">Go to Ovidiu's chat</a>
-    
-    <style>
-        #chatBox {
-        height: 400px; /* Adjust this value as needed */
-        overflow-y: auto;
-        border: 1px solid #ddd;
-        padding: 10px;
-        }
-    </style>
+
     <script src="chat.js"></script>
 </body>
 </html>
