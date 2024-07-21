@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Page 1</title>
+    <title>Madalin</title>
     <!-- Add Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
@@ -38,33 +38,69 @@ db.collection("test").get().then((querySnapshot) => {
 });
 </script>
 <style>
-    #chatBox {
-    height: 200px; /* Adjust this value as needed */
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    padding: 10px;
-    }
-
-    #message-input, #username {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+     body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-        
+        #chat-container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        #chat-box {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .message .sender {
+            font-weight: bold;
+        }
+        .message .timestamp {
+            font-size: 0.8em;
+            color: #777;
+        }
+        #message-input {
+            width: calc(100% - 90px);
+            padding: 10px;
+            margin-right: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #send-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+
 </style>
 </head>
 <body>
     <h1>Madalin</h1>
 
-    <div>
-        <label for="username">Madalin:</label>
-        <input type="text" id="username" placeholder="Your name">
-    </div>
     <div id="chat-container">
         <div id="chat-box"></div>
-        <input type="text" id="message-input" placeholder="Type a message...">
-        <button onclick="sendMessage()">Send</button>
+        <div>
+            <input type="text" id="message-input" placeholder="Type a message...">
+            <button onclick="sendMessage">Send</button>
+        </div>
     </div>
 
     <p>This is Madalin's chat!</p>
