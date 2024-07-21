@@ -36,6 +36,16 @@ db.collection("test").get().then((querySnapshot) => {
         console.log(doc.id, " => ", doc.data());
     });
 });
+    let senderName = '';
+
+    function promptForName() {
+    senderName = prompt("Type your name:");
+    if (!senderName) {
+    senderName = 'Anonymous';
+    }
+    }
+
+    promptForName();
 </script>
 <style>
     #chatBox {
