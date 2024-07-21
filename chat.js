@@ -1,19 +1,20 @@
-const chatBox = document.getElementById('chatBox');
-const messageInput = document.getElementById('messageInput');
-
+const chatBox = document.getElementById('chat-box');
+const messageInput = document.getElementById('message-input');
+const usernameInput = document.getElementById('username');
 
 function sendMessage() {
     const message = messageInput.value;
+    const username = usernameInput.value.trim() || 'Anonymous';
     if (message) {
-        postMessage(senderName, message);
+        postMessage(message, username);
         messageInput.value = '';
     }
 }
 
-function postMessage(sender, message) {
+function postMessage(message, username) {
     db.collection('messages').add({
-        sender: sender,
         text: message,
+        username: username,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).then(() => {
         console.log('Message sent:', message);
@@ -24,9 +25,8 @@ function postMessage(sender, message) {
 
 function displayMessage(message) {
     const messageElement = document.createElement('div');
-    messageElement.classList.add('message');
-    messageElement.classList.add(message.sender === senderName ? 'self' : 'other');
-    messageElement.innerHTML = `<span class="sender">${message.sender}:</span> <span class="text">${message.text}</span>`;
+    const timestamp = message.timestamp ? message.timestamp.toDate().toLocaleTimeString() : '...';
+    messageElement.innerHTML = `<strong>${message.username}</strong> [${timestamp}]: ${message.text}`;
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
 }
