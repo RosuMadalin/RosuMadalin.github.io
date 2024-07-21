@@ -1,12 +1,13 @@
 const chatBox = document.getElementById('chat-box');
 const messageInput = document.getElementById('message-input');
-const usernameInput = document.getElementById('username');
+
+// Get the page title to use as the sender's name
+const senderName = document.title;
 
 function sendMessage() {
     const message = messageInput.value;
-    const username = usernameInput.value.trim() || 'Anonymous';
     if (message) {
-        postMessage(message, username);
+        postMessage(message, senderName);
         messageInput.value = '';
     }
 }
@@ -25,8 +26,11 @@ function postMessage(message, username) {
 
 function displayMessage(message) {
     const messageElement = document.createElement('div');
+    messageElement.className = 'message';
     const timestamp = message.timestamp ? message.timestamp.toDate().toLocaleTimeString() : '...';
-    messageElement.innerHTML = `<strong>${message.username}</strong> [${timestamp}]: ${message.text}`;
+    messageElement.innerHTML = `<div class="sender">${message.username}</div>
+                                <div class="timestamp">${timestamp}</div>
+                                <div class="text">${message.text}</div>`;
     chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
 }
