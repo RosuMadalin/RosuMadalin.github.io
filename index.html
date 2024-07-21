@@ -36,16 +36,6 @@ db.collection("test").get().then((querySnapshot) => {
         console.log(doc.id, " => ", doc.data());
     });
 });
-    let senderName = '';
-
-    function promptForName() {
-    senderName = prompt("Type your name:");
-    if (!senderName) {
-        senderName = 'Anonymous';
-    }
-    }
-
-    promptForName();
 </script>
 <style>
     #chatBox {
@@ -54,13 +44,29 @@ db.collection("test").get().then((querySnapshot) => {
     border: 1px solid #ddd;
     padding: 10px;
     }
+
+    #message-input, #username {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        
 </style>
 </head>
 <body>
     <h1>Madalin</h1>
-    <div id="chatBox"></div>
-    <input type="text" id="messageInput" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send Message</button>
+
+    <div>
+        <label for="username">Madalin:</label>
+        <input type="text" id="username" placeholder="Your name">
+    </div>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
     <p>This is Madalin's chat!</p>
     <a href="chat.html">Go to Ovidiu's chat</a>
 
