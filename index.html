@@ -7,7 +7,7 @@
     <!-- Add Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
 <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -19,23 +19,12 @@
       appId: "1:29040309989:web:7b14ef01fe4fb930cdc60c",
       measurementID: "G-PJB6B9S86J"
       };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  var db = firebase.firestore();
-  // Test Firebase connection
-db.collection("test").add({
-    test: "Test message"
-}).then(() => {
-    console.log("Test message added!");
-}).catch((error) => {
-    console.error("Error adding test message: ", error);
-});
-
-db.collection("test").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-    });
-});
+      
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+      var storage = firebase.storage();
+    
 </script>
 <style>
      body {
@@ -46,7 +35,6 @@ db.collection("test").get().then((querySnapshot) => {
         #chat-container {
             width: 100%;
             max-width: 600px;
-            margin: auto;
             padding: 20px;
         }
         #chat-box {
@@ -89,7 +77,9 @@ db.collection("test").get().then((querySnapshot) => {
         #send-button:hover {
             background-color: #0056b3;
         }
-
+        .media-container {
+            margin-top: 20px;
+        }
 </style>
 </head>
 <body>
@@ -99,7 +89,11 @@ db.collection("test").get().then((querySnapshot) => {
         <div id="chat-box"></div>
         <div>
             <input type="text" id="message-input" placeholder="Type a message...">
-            <button onclick="sendMessage()">Send</button>
+            <button id="send-button" onclick="sendMessage()">Send</button>
+        </div>
+        <div class="media-container">
+            <input type="file" id="media-input" accept="image/*,video/*">
+            <button id="upload-button" onclick="uploadMedia()">Upload</button>
         </div>
     </div>
 
