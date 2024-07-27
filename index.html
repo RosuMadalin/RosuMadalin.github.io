@@ -8,6 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    <link rel="stylesheet" href="index.css">
 <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -24,76 +25,19 @@
       firebase.initializeApp(firebaseConfig);
       var db = firebase.firestore();
       var storage = firebase.storage();
-    
 </script>
-<style>
-     body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        #chat-container {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-        }
-        #chat-box {
-            width: 100%;
-            height: 400px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            overflow-y: scroll;
-            margin-bottom: 10px;
-            padding: 10px;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
-        }
-        .message {
-            margin-bottom: 10px;
-        }
-        .message .sender {
-            font-weight: bold;
-        }
-        .message .timestamp {
-            font-size: 0.8em;
-            color: #777;
-        }
-        #message-input {
-            width: calc(100% - 90px);
-            padding: 10px;
-            margin-right: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        #send-button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        #send-button:hover {
-            background-color: #0056b3;
-        }
-        .media-container {
-            margin-top: 20px;
-        }
-</style>
+
 </head>
 <body>
     <h1>Madalin</h1>
 
     <div id="chat-container">
         <div id="chat-box"></div>
-        <div>
+        <div id="message-input-container">
+            <input type="file" id="media-input" accept="image/*,video/*" style="display:none;">
+            <button id="upload-button" onclick="document.getElementById('media-input').click()">📎</button>
             <input type="text" id="message-input" placeholder="Type a message...">
             <button id="send-button" onclick="sendMessage()">Send</button>
-        </div>
-        <div class="media-container">
-            <input type="file" id="media-input" accept="image/*,video/*">
-            <button id="upload-button" onclick="uploadMedia()">Upload</button>
         </div>
     </div>
 
