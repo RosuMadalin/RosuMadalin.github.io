@@ -16,44 +16,65 @@ toggleButton.addEventListener('click', () => {
     }
 });
 
-// Define the container where the stock price will be displayed
-const stockPriceElement = document.getElementById('stock-price');
+// Add stock to Firestore
+function addStock(symbol, name, price) {
+    const db = firebase.firestore();
+    db.collection('watchlist').add({
+      symbol: symbol,
+      name: name,
+      price: price,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      console.log('Stock added');
+    }).catch((error) => {
+      console.error('Error adding stock:', error);
+    });
+  }
+  
+  // Fetch the stock list
+  function fetchWatchlist() {
+    const db = firebase.firestore();
+    db.collection('watchlist').orderBy('timestamp').onSnapshot((snapshot) => {
+      snapshot.forEach(doc => {
+        const stock = doc.data();
+        console.log('Stock:', stock);
+        // Update your UI with the stock data
+      });
+    });
+  }
 
-// Function to fetch stock data
-async function fetchStockData() {
-    const url = 'https://yahoo-finance-api.p.rapidapi.com/stock/v2/get-summary?symbol=MSFT';
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': 'ff417b8d15msh68777dca49c569fp1386b1jsnc8e8c7944038', // Replace with your own RapidAPI key
-            'x-rapidapi-host': 'yahoo-finance-api.p.rapidapi.com'
-        }
-    };
-
-    try {
-        const response = await fetch(url, options);
-        if (!response.ok) {
-            throw new Error('Failed to fetch stock data');
-        }
-        const data = await response.json();
-        console.log(data);  // Log the data to understand its structure
-        updateStockPrice(data);
-    } catch (error) {
-        console.error('Error fetching stock data:', error);
-    }
-}
-
-// Function to update the stock price on the webpage
-function updateStockPrice(data) {
-    // Ensure the data contains the necessary information before updating the UI
-    if (data && data.price && data.price.regularMarketPrice) {
-        const stockPrice = data.price.regularMarketPrice.raw;  // Get the raw price
-        stockPriceElement.textContent = `$${stockPrice.toFixed(2)}`;  // Update the price displayed
-    }
-}
-
-// Fetch stock data when the page is loaded
-// document.addEventListener('DOMContentLoaded', fetchStockData);
+  const stockSymbol = "MSFT"; // Microsoft stock symbol
+  const stockPriceElement = document.getElementById("stock-price"); // Target element to display stock price
+  
+  // Function to fetch the live stock price for Microsoft (MSFT) from Yahoo Finance API
+  async function fetchStockPrice() {
+      const url = `https://yahoo-finance-api.p.rapidapi.com/stock/v2/get-summary?symbol=${stockSymbol}`;
+  
+      const options = {
+          method: 'GET',
+          headers: {
+              'x-rapidapi-key': 'ff417b8d15msh68777dca49c569fp1386b1jsnc8e8c7944038', // Replace with your RapidAPI key
+              'x-rapidapi-host': 'yahoo-finance166.p.rapidapi.com'
+          }
+      };
+  
+      try {
+          const response = await fetch(url, options);
+          const data = await response.json();
+          const price = data.price.regularMarketPrice.raw; // Get the stock price from the response
+  
+          // Update the stock price in the watchlist
+          stockPriceElement.textContent = `$${price.toFixed(2)}`; // Format and set the price
+      } catch (error) {
+          console.error("Error fetching stock price:", error);
+          stockPriceElement.textContent = "$0.00"; // Default if there's an error
+      }
+  }
+  
+  // Call the function to fetch the stock price when the page loads
+  window.onload = () => {
+      fetchStockPrice(); // Fetch the price for MSFT
+  };
 
 // 'x-rapidapi-key': 'ff417b8d15msh68777dca49c569fp1386b1jsnc8e8c7944038',
 //             'x-rapidapi-host': 'yahoo-finance166.p.rapidapi.com'
