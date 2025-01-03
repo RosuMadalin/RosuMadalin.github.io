@@ -5,16 +5,6 @@ const mediaInput = document.getElementById('media-input');
 // Get the page title to use as the sender's name
 const senderName = document.title;
 
-// toggleButton.addEventListener('click', () => {
-//     if (watchlist.classList.contains('show')) {
-//         watchlist.classList.remove('show'); // Hide the watchlist
-//         toggleButton.textContent = '⬇️'; // Update the arrow
-//     } else {
-//         watchlist.classList.add('show'); // Show the watchlist
-//         toggleButton.textContent = '⬆️'; // Update the arrow
-//     }
-// });
-
 function sendMessage() {
     const message = messageInput.value;
     const file = mediaInput.files[0];
@@ -30,7 +20,6 @@ function sendMessage() {
         } else {
             postMessage(message, senderName);
         }
-
         messageInput.value = '';
     }
 }
