@@ -43,6 +43,20 @@ function addStock(symbol, name, price) {
     });
   }
 
+// Add message to Firestore
+db.collection('chatMessages').add({
+  text: "Hello, World!",
+  username: "User1",
+  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+});
+
+// Add stock info to Firestore
+db.collection('watchlist').add({
+  symbol: "MSFT",
+  price: 250.00,
+  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+});
+
   const stockSymbol = "MSFT"; // Microsoft stock symbol
   const stockPriceElement = document.getElementById("stock-price"); // Target element to display stock price
   
