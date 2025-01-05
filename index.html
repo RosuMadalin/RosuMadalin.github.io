@@ -1,83 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Madalin</title>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="index.css" />
+
     <!-- Add Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
-    <link rel="stylesheet" href="index.css">
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "firebase/app";
-        import { getAnalytics } from "firebase/analytics";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-        
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyAhv_h6IkdXt2262kg5ANMQd6x1z31kUa8",
-          authDomain: "live-chat--and-watchlist.firebaseapp.com",
-          projectId: "live-chat--and-watchlist",
-          storageBucket: "live-chat--and-watchlist.firebasestorage.app",
-          messagingSenderId: "614566109456",
-          appId: "1:614566109456:web:332909e8067229e0cfc595",
-          measurementId: "G-T65FJH6HYM"
-        };
-      
-        // Initialize Firebase
-        // const db = firebase.firestore();
-        // const storage = firebase.storage();
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
 
-</head>
-<body>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBZHhC_gv51VMDgIDGV-9xK5_fCi1VPajw",
+        authDomain: "chat-online-23bfb.firebaseapp.com",
+        projectId: "chat-online-23bfb",
+        storageBucket: "chat-online-23bfb.appspot.com",
+        messagingSenderId: "29040309989",
+        appId: "1:29040309989:web:7b14ef01fe4fb930cdc60c",
+        measurementID: "G-PJB6B9S86J",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+      // var storage = firebase.storage();
+    </script>
+  </head>
+  <body>
     <h1>Madalinul e cel mai tare</h1>
     <div id="main-wrapper">
-        <div id="main-container">
-            <!-- Watchlist Container -->
-            <div id="watchlist-container">
-                <div id="watchlist-header">
-                    <span>Watchlist</span>
-                    <button id="toggle-watchlist">⬇️</button>
-                </div>
-                <ul id="watchlist">
-                    <li id="stock-1">
-                        <span id="stock-symbol">MSFT</span> - 
-                        <span id="stock-price">$0.00</span>
-                    </li>
-                    <li>Stock 2</li>
-                    <li>Stock 3</li>
-                    <li>Stock 4</li>
-                    <li>Stock 5</li>
-                </ul>
-            </div>
+      <div id="main-container">
+        <!-- Watchlist Container -->
+        <div id="watchlist-container">
+          <div id="watchlist-header">
+            <span>Watchlist</span>
+            <button id="toggle-watchlist">⬇️</button>
+          </div>
+          <ul id="watchlist">
+            <li>
+              <span class="stock-symbol">MSFT</span> -
+              <span class="stock-price">?</span>
+            </li>
+            <li>
+              <span class="stock-symbol">TSLA</span> -
+              <span class="stock-price">?</span>
+            </li>
+            <!--
+            <li>
+              <span class="stock-symbol">GOOGL</span> -
+              <span class="stock-price">?</span>
+            </li>
+            <li>
+              <span class="stock-symbol">AF.PA</span> -
+              <span class="stock-price">?</span>
+            </li>
+            <li>
+              <span class="stock-symbol">WIZZ.L</span> -
+              <span class="stock-price">?</span>
+            </li>
+            -->
+          </ul>
+        </div>
 
         <!-- Chat Container -->
-            <div id="chat-container">
-                <div id="chat-box"></div>
-                <div id="message-input-container">
-                    <input type="file" id="media-input" accept="image/*,video/*" style="display:none;">
-                    <button id="upload-button" onclick="document.getElementById('media-input').click()">📎</button>
-                    <input type="text" id="message-input" placeholder="Type a message...">
-                    <button id="send-button" onclick="sendMessage()">Send</button>
-                </div>
-            </div>
+        <div id="chat-container">
+          <div id="chat-box"></div>
+          <div id="message-input-container">
+            <input
+              type="file"
+              id="media-input"
+              accept="image/*,video/*"
+              style="display: none"
+            />
+            <button
+              id="upload-button"
+              onclick="document.getElementById('media-input').click()"
+            >
+              📎
+            </button>
+            <input
+              type="text"
+              id="message-input"
+              placeholder="Type a message..."
+            />
+            <button id="send-button" onclick="sendMessage()">Send</button>
+          </div>
         </div>
+      </div>
 
-        <!-- Content Below -->
-        <div id="extra-content">
-            <p>This is Madalin's chat!</p>
-            <a href="chat.html">Go to Ovidiu's chat</a>
-        </div>
+      <!-- Content Below -->
+      <div id="extra-content">
+        <p>This is Madalin's chat!</p>
+        <a href="chat.html">Go to Ovidiu's chat</a>
+      </div>
     </div>
-    <script src="chat.js"></script>
+    <!-- <script src="chat.js"></script> -->
     <script src="watchlist.js"></script>
-
-</body>
+  </body>
 </html>
