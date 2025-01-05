@@ -1,95 +1,116 @@
-// Select the toggle button and the watchlist element
-const toggleButton = document.getElementById('toggle-watchlist');
-const watchlist = document.getElementById('watchlist');
+const chatBox = document.getElementById("chat-box");
+const messageInput = document.getElementById("message-input");
+const mediaInput = document.getElementById("media-input");
 
-// Add click event listener to the toggle button
-toggleButton.addEventListener('click', () => {
-    // Check the current display state of the watchlist
-    if (watchlist.style.display === 'none' || !watchlist.style.display) {
-        // If hidden or no display style is set, show the watchlist
-        watchlist.style.display = 'block';
-        toggleButton.textContent = '⬆️'; // Change the arrow to point upwards
+// Get the page title to use as the sender's name
+const senderName = document.title;
+
+function sendMessage() {
+  const message = messageInput.value;
+  const file = mediaInput.files[0];
+
+  if (message || file) {
+    if (file) {
+      uploadMedia(file)
+        .then((url) => {
+          postMessage(message, senderName, url, file.type);
+          mediaInput.value = "";
+        })
+        .catch((error) => {
+          console.error("Error uploading media:", error);
+        });
     } else {
-        // Otherwise, hide the watchlist
-        watchlist.style.display = 'none';
-        toggleButton.textContent = '⬇️'; // Change the arrow to point downwards
+      postMessage(message, senderName);
     }
-});
+    messageInput.value = "";
+  }
+}
 
-// Add stock to Firestore
-function addStock(symbol, name, price) {
-    const db = firebase.firestore();
-    db.collection('watchlist').add({
-      symbol: symbol,
-      name: name,
-      price: price,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-      console.log('Stock added');
-    }).catch((error) => {
-      console.error('Error adding stock:', error);
+function postMessage(message, username, mediaURL = null, mediaType = null) {
+  db.collection("messages")
+    .add({
+      text: message,
+      username: username,
+      mediaURL: mediaURL,
+      mediaType: mediaType,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+    .then(() => {
+      console.log("Message sent:", message);
+    })
+    .catch((error) => {
+      console.error("Error sending message:", error);
     });
-  }
-  
-  // Fetch the stock list
-  function fetchWatchlist() {
-    const db = firebase.firestore();
-    db.collection('watchlist').orderBy('timestamp').onSnapshot((snapshot) => {
-      snapshot.forEach(doc => {
-        const stock = doc.data();
-        console.log('Stock:', stock);
-        // Update your UI with the stock data
-      });
-    });
+}
+
+function displayMessage(doc) {
+  const message = doc.data();
+  const messageElement = document.createElement("div");
+  messageElement.className = "message";
+  messageElement.classList.add(
+    message.username === senderName ? "sent" : "received"
+  );
+
+  if (message.mediaURL) {
+    messageElement.classList.add("media-message"); // Add class for media messages
+
+    if (message.mediaType.startsWith("image/")) {
+      messageElement.innerHTML = `<div class="media"><img src="${message.mediaURL}" alt="Image"></div>`;
+    } else if (message.mediaType.startsWith("video/")) {
+      messageElement.innerHTML = `<div class="media"><video controls><source src="${message.mediaURL}" type="${message.mediaType}"></video></div>`;
+    }
+  } else {
+    const timestamp = message.timestamp
+      ? message.timestamp.toDate().toLocaleTimeString()
+      : "...";
+    messageElement.innerHTML = `<div class="sender">${message.username}</div>
+                                    <div class="timestamp">${timestamp}</div>
+                                    <div class="text">${message.text}</div>`;
   }
 
-// Add message to Firestore
-db.collection('chatMessages').add({
-  text: "Hello, World!",
-  username: "User1",
-  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-});
-
-// Add stock info to Firestore
-db.collection('watchlist').add({
-  symbol: "MSFT",
-  price: 250.00,
-  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-});
-
-  const stockSymbol = "MSFT"; // Microsoft stock symbol
-  const stockPriceElement = document.getElementById("stock-price"); // Target element to display stock price
-  
-  // Function to fetch the live stock price for Microsoft (MSFT) from Yahoo Finance API
-  async function fetchStockPrice() {
-      const url = `https://yahoo-finance-api.p.rapidapi.com/stock/v2/get-summary?symbol=${stockSymbol}`;
-  
-      const options = {
-          method: 'GET',
-          headers: {
-              'x-rapidapi-key': 'ff417b8d15msh68777dca49c569fp1386b1jsnc8e8c7944038', // Replace with your RapidAPI key
-              'x-rapidapi-host': 'yahoo-finance166.p.rapidapi.com'
-          }
-      };
-  
-      try {
-          const response = await fetch(url, options);
-          const data = await response.json();
-          const price = data.price.regularMarketPrice.raw; // Get the stock price from the response
-  
-          // Update the stock price in the watchlist
-          stockPriceElement.textContent = `$${price.toFixed(2)}`; // Format and set the price
-      } catch (error) {
-          console.error("Error fetching stock price:", error);
-          stockPriceElement.textContent = "$0.00"; // Default if there's an error
-      }
-  }
-  
-  // Call the function to fetch the stock price when the page loads
-  window.onload = () => {
-      fetchStockPrice(); // Fetch the price for MSFT
+  // Handle right-click event
+  messageElement.oncontextmenu = (e) => {
+    e.preventDefault();
+    if (confirm("Do you want to delete this message?")) {
+      deleteMessage(doc.id);
+    }
   };
 
-// 'x-rapidapi-key': 'ff417b8d15msh68777dca49c569fp1386b1jsnc8e8c7944038',
-//             'x-rapidapi-host': 'yahoo-finance166.p.rapidapi.com'
-//         }
+  chatBox.appendChild(messageElement);
+  chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+}
+
+function receiveMessages() {
+  db.collection("messages")
+    .orderBy("timestamp")
+    .onSnapshot((snapshot) => {
+      chatBox.innerHTML = "";
+      snapshot.forEach((doc) => {
+        displayMessage(doc);
+      });
+    });
+}
+
+function deleteMessage(messageId) {
+  db.collection("messages")
+    .doc(messageId)
+    .delete()
+    .then(() => {
+      console.log("Message deleted:", messageId);
+    })
+    .catch((error) => {
+      console.error("Error deleting message:", error);
+    });
+}
+
+function uploadMedia(file) {
+  const storageRef = storage.ref();
+  const fileRef = storageRef.child("media/" + file.name);
+
+  return fileRef.put(file).then(() => {
+    return fileRef.getDownloadURL();
+  });
+}
+
+// Start receiving messages
+receiveMessages();
