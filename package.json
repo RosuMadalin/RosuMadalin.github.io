@@ -3,3 +3,9 @@
     "firebase": "^10.14.1"
   }
 }
+
+{
+  "dependencies": {
+    "firebase": "^10.12.4"
+  }
+}
