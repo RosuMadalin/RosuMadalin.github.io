@@ -41,7 +41,7 @@ body {
 #watchlist {
     list-style: none;
     padding: 0;
-    display: none; /* Initially hidden */
+    display: nne; /* Initially hidden */
     width: 100%;
 }
 
