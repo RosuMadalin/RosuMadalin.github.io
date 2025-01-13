@@ -54,13 +54,13 @@ function postMessage(message, username, mediaURL = null, mediaType = null) {
 }
 
 // Autentificare firebase pentru files
-firebase.auth().signInAnonymously()
-  .then(() => {
-    console.log("Signed in anonymously");
-  })
-  .catch((error) => {
-    console.error("Error during anonymous sign-in:", error);
-  });
+// firebase.auth().signInAnonymously()
+//   .then(() => {
+//     console.log("Signed in anonymously");
+//   })
+//   .catch((error) => {
+//     console.error("Error during anonymous sign-in:", error);
+//   });
 function displayMessage(doc) {
   const message = doc.data();
   const messageElement = document.createElement("div");
