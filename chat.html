@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ovidiu</title>
+    <link rel="shortcut icon" href="#">
     <!-- Add Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
 <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -20,7 +21,7 @@
       appId: "1:29040309989:web:7b14ef01fe4fb930cdc60c",
       measurementID: "G-PJB6B9S86J"
       };
-  
+
       // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
@@ -89,18 +90,29 @@
     <div id="chat-container">
         <div id="chat-box"></div>
         <div>
-            <input type="text" id="message-input" placeholder="Type a message...">
+            <input
+              type="text"
+              id="message-input"
+              placeholder="Type a message..."
+            />
             <button id="send-button" onclick="sendMessage()">Send</button>
-        </div>
-        <div class="media-container">
-            <input type="file" id="media-input" accept="image/*,video/*">
-            <button id="upload-button" onclick="uploadMedia()">Upload</button>
+                    <input
+              type="file"
+              id="media-input"
+              accept="image/*,video/*"
+              style="display: none"
+            />
+            <button
+              id="upload-button"
+              onclick="document.getElementById('media-input').click()"
+            >
+              Browse
+            </button>
         </div>
     </div>
 
     <p>This is Ovidiu's chat!</p>
     <a href="index.html">Go to Madalin's chat</a>
-   
+
     <script src="chat.js"></script>
 </body>
-</html>
