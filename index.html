@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracking Tradings</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Madalin</title>
     <link rel="shortcut icon" href="#">
+
     <script
       src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
       integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="index.css" />
-    
+
     <!-- Add Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
@@ -19,62 +20,93 @@
     <!-- <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script> -->
 
     <script>
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-        apiKey: "AIzaSyDIrh1zkGtxHdAoVP0Mlelt5aIzzxUxlbg",
-        authDomain: "tracking-tradings-727aa.firebaseapp.com",
-        projectId: "tracking-tradings-727aa",
-        storageBucket: "tracking-tradings-727aa.firebasestorage.app",
-        messagingSenderId: "747058800250",
-        appId: "1:747058800250:web:e4eec0ce768a7166ca7dc3",
-        measurementId: "G-J3QBWDSNQ5"
-        };
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBZHhC_gv51VMDgIDGV-9xK5_fCi1VPajw",
+        authDomain: "chat-online-23bfb.firebaseapp.com",
+        projectId: "chat-online-23bfb",
+        storageBucket: "chat-online-23bfb.appspot.com",
+        messagingSenderId: "29040309989",
+        appId: "1:29040309989:web:7b14ef01fe4fb930cdc60c",
+        measurementID: "G-PJB6B9S86J",
+      };
 
-  
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
-        var storage = firebase.storage();
-      </script>
-</head>
-<body>
-    <h1 id="main-title">Tracking Tradings</h1>
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      var db = firebase.firestore();
+      var storage = firebase.storage();
+    </script>
+  </head>
+  <body>
+    <h1>Madalinul e cel mai tare</h1>
     <div id="main-wrapper">
-        <div id="main-container">
-    <!-- Watchlist Container -->
-            <div id="watchlist-container">
-                <div id="watchlist-header">
-                <span>Watchlist</span>
-                <button id="toggle-watchlist">⬇️</button>
-                </div>
-                <ul id="watchlist">
-                <li>
-                    <span class="stock-symbol">MSFT</span> -
-                    <span class="stock-price">?</span>
-                </li>
-                <li>
-                    <span class="stock-symbol">TSLA</span> -
-                    <span class="stock-price">?</span>
-                </li>
-                <!--
-                <li>
-                    <span class="stock-symbol">GOOGL</span> -
-                    <span class="stock-price">?</span>
-                </li>
-                <li>
-                    <span class="stock-symbol">AF.PA</span> -
-                    <span class="stock-price">?</span>
-                </li>
-                <li>
-                    <span class="stock-symbol">WIZZ.L</span> -
-                    <span class="stock-price">?</span>
-                </li>
-                -->
-                </ul>
-            </div>
+      <div id="main-container">
+        <!-- Watchlist Container -->
+        <div id="watchlist-container">
+          <div id="watchlist-header">
+            <span>Watchlist</span>
+            <button id="toggle-watchlist">⬇️</button>
+          </div>
+          <ul id="watchlist">
+            <li>
+              <span class="stock-symbol">MSFT</span> -
+              <span class="stock-price">?</span>
+            </li>
+            <li>
+              <span class="stock-symbol">TSLA</span> -
+              <span class="stock-price">?</span>
+            </li>
+            <!--
+            <li>
+              <span class="stock-symbol">GOOGL</span> -
+              <span class="stock-price">?</span>
+            </li>
+            <li>
+              <span class="stock-symbol">AF.PA</span> -
+              <span class="stock-price">?</span>
+            </li>
+            <li>
+              <span class="stock-symbol">WIZZ.L</span> -
+              <span class="stock-price">?</span>
+            </li>
+            -->
+          </ul>
         </div>
+
+        <!-- Chat Container -->
+        <div id="chat-container">
+          <div id="chat-box"></div>
+          <div id="message-input-container">
+            <input
+              type="file"
+              id="media-input"
+              accept="image/*,video/*"
+              style="display: none"
+            />
+            <button
+              id="upload-button"
+              onclick="document.getElementById('media-input').click()"
+            >
+              📎
+            </button>
+            <span id="file-name" style="margin-left: 10px; font-style: italic;"></span>
+            <input
+              type="text"
+              id="message-input"
+              placeholder="Type a message..."
+            />
+            <button id="send-button" onclick="sendMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Below -->
+      <div>
+        <p>This is Madalin's chat!</p>
+        <a href="chat.html">Go to Ovidiu's chat</a>
+      </div>
     </div>
-      <script src="index.js"></script>
-      <script src="watchlist.js"></script>
-</body>
+    <script src="chat.js"></script>
+    <script src="watchlist.js"></script>
+  </body>
 </html>
