@@ -51,10 +51,10 @@ function addStockData(symbol, price) {
             var price = item.price;
             
             // Check if the data is older than 1 hour
-            if (new Date() - timestamp > 1* 60 * 1000) {
+            if (new Date() - timestamp > 90 * 60 * 1000) {
               // Data is older than 1 hour, fetch fresh data from RapidAPI
               fetchStockPrice(symbol, result);
-              console.log("Data is older than 1 minutes, fetching from RapidAPI...");
+              console.log("Data is older than 90 minutes, fetching from RapidAPI...");
             } else {
               // Data is less than 1 hour old, display it
               $(result).text(price + " $");
